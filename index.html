@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title> MTG</title>
+<link rel="stylesheet" href="App.css" />
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const { useState } = React;
+
+  function App() {
+    const [p1, setP1] = useState(20);
+    const [p2, setP2] = useState(20);
+
+    const change = (setter, delta) => {
+      setter((v) => Math.max(0, v + delta));
+    };
+
+    const reset = () => {
+      if (window.confirm("¿Reiniciar la vida de ambos jugadores a 20?")) {
+        setP1(20);
+        setP2(20);
+      }
+    };
+
+    return (
+      <div className="app">
+        <h1>Magic: The Gathering </h1>
+
+        <div className="board">
+          <div className="player">
+            <h2>Jugador 1</h2>
+            <p className="points">{p1}</p>
+            <button onClick={() => change(setP1, -1)}>−</button>
+            <button onClick={() => change(setP1, 1)}>+</button>
+          </div>
+
+          <div className="player">
+            <h2>Jugador 2</h2>
+            <p className="points">{p2}</p>
+            <button onClick={() => change(setP2, -1)}>−</button>
+            <button onClick={() => change(setP2, 1)}>+</button>
+          </div>
+        </div>
+
+        <button className="reset" onClick={reset}>
+          Reiniciar
+        </button>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+</body>
+</html>
